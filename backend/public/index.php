@@ -11,6 +11,8 @@ if (!empty($origin)) {
             "http://localhost:5173",
             "http://localhost:8081",
             "http://localhost:8082",
+             "https://nexiscore.vercel.app",
+    "https://nexiscore-admin.vercel.app",
         ];
         if (in_array($origin, $allowedOrigins, true)) {
             header("Access-Control-Allow-Origin: $origin");
