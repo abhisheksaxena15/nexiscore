@@ -11,9 +11,10 @@ if (!empty($origin)) {
             "http://localhost:5173",
             "http://localhost:8081",
             "http://localhost:8082",
-             "https://nexiscore.vercel.app",
-    "https://nexiscore-admin.vercel.app",
+            "https://nexiscore.vercel.app",
+            "https://nexiscore-admin.vercel.app",
         ];
+
         if (in_array($origin, $allowedOrigins, true)) {
             header("Access-Control-Allow-Origin: $origin");
         }
@@ -29,16 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit;
-}
-
-
-
 require_once __DIR__ . '/../vendor/autoload.php';
-
 
 if (file_exists(__DIR__ . '/../.env')) {
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
@@ -49,26 +41,13 @@ if (isset($_ENV['TIMEZONE'])) {
     date_default_timezone_set($_ENV['TIMEZONE']);
 }
 
-
 use App\Core\Router;
 
 $router = new Router();
-
-/*
-|--------------------------------------------------------------------------
-| Load Routes
-|--------------------------------------------------------------------------
-*/
 
 require_once __DIR__ . '/../routes/admin.php';
 require_once __DIR__ . '/../routes/product.php';
 require_once __DIR__ . '/../routes/auth.php';
 require_once __DIR__ . '/../routes/public.php';
-
-/*
-|--------------------------------------------------------------------------
-| Dispatch Request
-|--------------------------------------------------------------------------
-*/
 
 $router->dispatch();
