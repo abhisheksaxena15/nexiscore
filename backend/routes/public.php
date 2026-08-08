@@ -2,4 +2,7 @@
 
 use App\Controllers\HealthController;
 
-$router->get('/api/health', [HealthController::class, 'index']);m
+$router->get(
+    '/api/health',
+    [HealthController::class, 'index']
+);
