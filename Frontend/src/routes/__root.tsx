@@ -114,7 +114,7 @@ function RootComponent() {
   const location = useLocation();
 
   useEffect(() => {
-    const apiBase = import.meta.env.VITE_API_URL ?? "http://localhost/all-stage/All-stage/backend/public/api";
+    const apiBase = import.meta.env.VITE_API_URL ?? "https://nexiscore-production.up.railway.app/api";
     fetch(`${apiBase}/visit`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

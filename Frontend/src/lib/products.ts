@@ -113,7 +113,7 @@ export function useCategoriesList() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const apiBase = import.meta.env.VITE_API_URL ?? "http://localhost/all-stage/All-stage/backend/public/api";
+    const apiBase = import.meta.env.VITE_API_URL ?? "https://nexiscore-production.up.railway.app/api";
     fetch(`${apiBase}/admin/categories`)
       .then((res) => res.json())
       .then((json) => {
