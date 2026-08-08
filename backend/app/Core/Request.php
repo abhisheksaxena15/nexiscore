@@ -24,23 +24,15 @@ class Request
     /**
      * URI
      */
-    public static function uri(): string
+    /**
+ * URI
+ */
+public static function uri(): string
 {
-    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-    // Base path of your application (dynamically resolved)
-    $basePath = '';
-    if (isset($_SERVER['SCRIPT_NAME'])) {
-        $basePath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-        if ($basePath === '/' || $basePath === '.') {
-            $basePath = '';
-        }
-    }
-
-    // Remove base path
-    if (!empty($basePath) && str_starts_with($uri, $basePath)) {
-        $uri = substr($uri, strlen($basePath));
-    }
+    $uri = parse_url(
+        $_SERVER['REQUEST_URI'] ?? '/',
+        PHP_URL_PATH
+    );
 
     $uri = rtrim($uri, '/');
 
