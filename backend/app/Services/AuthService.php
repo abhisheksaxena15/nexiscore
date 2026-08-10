@@ -96,7 +96,7 @@ class AuthService
     public function verifyOtp(int $adminId, string $otp): array
     {
         $bypassOtp = \App\Core\Env::get('BYPASS_OTP');
-        $isBypass = !empty($bypassOtp) && $otp === $bypassOtp;
+        $isBypass = !empty($bypassOtp) && trim((string)$otp) === trim((string)$bypassOtp);
 
         if (!$isBypass) {
             $otpRepository = new OtpRepository();
@@ -168,7 +168,7 @@ class AuthService
     public function verifyForgotOtp(int $adminId, string $otp): bool
     {
         $bypassOtp = \App\Core\Env::get('BYPASS_OTP');
-        $isBypass = !empty($bypassOtp) && $otp === $bypassOtp;
+        $isBypass = !empty($bypassOtp) && trim((string)$otp) === trim((string)$bypassOtp);
 
         if ($isBypass) {
             return true;
