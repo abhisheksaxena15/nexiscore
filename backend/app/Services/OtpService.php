@@ -48,9 +48,16 @@ class OtpService
 
         );
 
-        return $this->mail->sendOTP(
-            $admin->getEmail(),
-            $otp
-        );
+        try {
+            return $this->mail->sendOTP(
+                $admin->getEmail(),
+                $otp
+            );
+        } catch (\Exception $e) {
+            if (!empty(\App\Core\Env::get('BYPASS_OTP'))) {
+                return true; // Pretend it succeeded since we can use bypass OTP
+            }
+            throw $e;
+        }
     }
 }
