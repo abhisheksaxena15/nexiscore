@@ -101,7 +101,7 @@ class MailService
 
         <div style='font-family:Arial;padding:30px'>
 
-            <h2>AllStage Login Verification</h2>
+            <h2>Nexiscore Login Verification</h2>
 
             <p>Your One Time Password is</p>
 
