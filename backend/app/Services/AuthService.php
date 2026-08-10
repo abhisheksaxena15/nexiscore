@@ -64,7 +64,7 @@ class AuthService
 
         $otpService = new OtpService();
 
-        if (!$otpService->generate($admin)) {
+        if (!$otpService->generateForForgotPassword($admin)) {
             throw new Exception("Unable to send OTP.");
         }
 
