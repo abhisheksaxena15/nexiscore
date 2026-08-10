@@ -18,6 +18,8 @@ class Env
 
     public static function get(string $key, mixed $default = null): mixed
     {
+        $val = getenv($key);
+        if ($val !== false) return $val;
         return $_ENV[$key] ?? $default;
     }
 }

@@ -12,7 +12,9 @@ class MailService
 
     public function __construct()
     {
-        if (empty($_ENV['MAIL_HOST'])) {
+        $getHost = function($k) { return getenv($k) !== false ? getenv($k) : ($_ENV[$k] ?? ''); };
+
+        if (empty($getHost('MAIL_HOST'))) {
             $this->isMuted = true;
             return;
         }
@@ -21,17 +23,17 @@ class MailService
 
         // SMTP Configuration
         $this->mail->isSMTP();
-        $this->mail->Host = $_ENV['MAIL_HOST'];
+        $this->mail->Host = $getHost('MAIL_HOST');
         $this->mail->SMTPAuth = true;
-        $this->mail->Username = $_ENV['MAIL_USERNAME'];
-        $this->mail->Password = $_ENV['MAIL_PASSWORD'];
+        $this->mail->Username = $getHost('MAIL_USERNAME');
+        $this->mail->Password = $getHost('MAIL_PASSWORD');
         $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $this->mail->Port = (int) $_ENV['MAIL_PORT'];
+        $this->mail->Port = (int) $getHost('MAIL_PORT');
 
         // Sender
         $this->mail->setFrom(
-            $_ENV['MAIL_FROM'],
-            $_ENV['MAIL_FROM_NAME']
+            $getHost('MAIL_FROM'),
+            $getHost('MAIL_FROM_NAME')
         );
 
         $this->mail->isHTML(true);
