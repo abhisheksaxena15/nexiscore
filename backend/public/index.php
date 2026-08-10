@@ -41,6 +41,10 @@ if (isset($_ENV['TIMEZONE'])) {
     date_default_timezone_set($_ENV['TIMEZONE']);
 }
 
+// Start session early with correct cross-origin cookie params
+use App\Core\Session;
+Session::start();
+
 use App\Core\Router;
 
 $router = new Router();
