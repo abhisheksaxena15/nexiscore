@@ -62,10 +62,9 @@ class OtpService
             }
             @file_put_contents($logDir . '/mail.log', "[" . date('Y-m-d H:i:s') . "] OtpService Mail Error: " . $e->getMessage() . "\n", FILE_APPEND);
             
-            // TEMPORARILY DISABLED TO SURAFCE THE ERROR
-            // if (!empty(\App\Core\Env::get('BYPASS_OTP'))) {
-            //     return true; // Pretend it succeeded since we can use bypass OTP
-            // }
+            if (!empty(\App\Core\Env::get('BYPASS_OTP'))) {
+                return true; // Pretend it succeeded since we can use bypass OTP
+            }
             throw $e;
         }
     }
@@ -106,10 +105,9 @@ class OtpService
             }
             @file_put_contents($logDir . '/mail.log', "[" . date('Y-m-d H:i:s') . "] OtpService Mail Error (Forgot Password): " . $e->getMessage() . "\n", FILE_APPEND);
             
-            // TEMPORARILY DISABLED TO SURAFCE THE ERROR
-            // if (!empty(\App\Core\Env::get('BYPASS_OTP'))) {
-            //     return true;
-            // }
+            if (!empty(\App\Core\Env::get('BYPASS_OTP'))) {
+                return true;
+            }
             throw $e;
         }
     }
