@@ -59,13 +59,7 @@ class MailService
     ): bool {
 
         if ($this->isMuted) {
-            $logDir = __DIR__ . '/../../logs';
-            if (!is_dir($logDir)) {
-                @mkdir($logDir, 0777, true);
-            }
-            $logEntry = "[" . date('Y-m-d H:i:s') . "] TO: $to | SUBJECT: $subject | BODY: $body\n---\n";
-            @file_put_contents($logDir . '/mail.log', $logEntry, FILE_APPEND);
-            return true;
+            throw new \Exception("MailService is muted. Missing or empty MAIL_HOST environment variable.");
         }
 
         try {
@@ -91,7 +85,7 @@ class MailService
             $logEntry = "[" . date('Y-m-d H:i:s') . "] (SMTP Failed: " . $e->getMessage() . ") TO: $to | SUBJECT: $subject | BODY: $body\n---\n";
             @file_put_contents($logDir . '/mail.log', $logEntry, FILE_APPEND);
 
-            return true;
+            throw new \Exception("SMTP Error: " . $e->getMessage());
         }
     }
 
