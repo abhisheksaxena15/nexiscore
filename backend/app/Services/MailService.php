@@ -2,55 +2,32 @@
 
 namespace App\Services;
 
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\PHPMailer;
-
 class MailService
 {
-    private PHPMailer $mail;
+    private string $apiKey;
+    private string $from;
+    private string $fromName;
     private bool $isMuted = false;
 
     public function __construct()
     {
-        $getHost = function($k) { return getenv($k) !== false ? getenv($k) : ($_ENV[$k] ?? ''); };
+        $env = function($k) {
+            return getenv($k) !== false ? getenv($k) : ($_ENV[$k] ?? '');
+        };
 
-        if (empty($getHost('MAIL_HOST'))) {
+        $this->apiKey = $env('RESEND_API_KEY');
+
+        if (empty($this->apiKey)) {
             $this->isMuted = true;
             return;
         }
 
-        $this->mail = new PHPMailer(true);
-
-        // SMTP Configuration
-        $this->mail->isSMTP();
-        $this->mail->Host = $getHost('MAIL_HOST');
-        $this->mail->SMTPAuth = true;
-        $this->mail->Username = $getHost('MAIL_USERNAME');
-        $this->mail->Password = $getHost('MAIL_PASSWORD');
-        
-        $port = (int) $getHost('MAIL_PORT');
-        $this->mail->Port = $port;
-        
-        if ($port === 465) {
-            $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        } else {
-            $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        }
-        
-        // Prevent hanging on connection issues
-        $this->mail->Timeout = 10;
-
-        // Sender
-        $this->mail->setFrom(
-            $getHost('MAIL_FROM'),
-            $getHost('MAIL_FROM_NAME')
-        );
-
-        $this->mail->isHTML(true);
+        $this->from = $env('MAIL_FROM') ?: 'onboarding@resend.dev';
+        $this->fromName = $env('MAIL_FROM_NAME') ?: 'Nexiscore';
     }
 
     /**
-     * Generic Email Sender
+     * Generic Email Sender — uses Resend HTTP API (no SMTP needed)
      */
     public function send(
         string $to,
@@ -59,34 +36,55 @@ class MailService
     ): bool {
 
         if ($this->isMuted) {
-            throw new \Exception("MailService is muted. Missing or empty MAIL_HOST environment variable.");
+            throw new \Exception("MailService is muted. Missing RESEND_API_KEY environment variable.");
         }
 
-        try {
+        $payload = json_encode([
+            'from' => "{$this->fromName} <{$this->from}>",
+            'to'   => [$to],
+            'subject' => $subject,
+            'html' => $body,
+        ]);
 
-            $this->mail->clearAddresses();
+        $ch = curl_init();
+        curl_setopt_array($ch, [
+            CURLOPT_URL            => 'https://api.resend.com/emails',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => $payload,
+            CURLOPT_TIMEOUT        => 15,
+            CURLOPT_HTTPHEADER     => [
+                'Authorization: Bearer ' . $this->apiKey,
+                'Content-Type: application/json',
+            ],
+        ]);
 
-            $this->mail->addAddress($to);
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlError = curl_error($ch);
+        curl_close($ch);
 
-            $this->mail->Subject = $subject;
+        if ($curlError) {
+            error_log("Resend curl error: " . $curlError);
+            throw new \Exception("Email delivery failed: network error.");
+        }
 
-            $this->mail->Body = $body;
-
-            return $this->mail->send();
-
-        } catch (Exception $e) {
-
-            error_log("PHPMailer SMTP error: " . $e->getMessage());
+        if ($httpCode >= 400) {
+            $decoded = json_decode($response, true);
+            $message = $decoded['message'] ?? $response;
+            error_log("Resend API error (HTTP $httpCode): " . $message);
 
             $logDir = __DIR__ . '/../../logs';
             if (!is_dir($logDir)) {
                 @mkdir($logDir, 0777, true);
             }
-            $logEntry = "[" . date('Y-m-d H:i:s') . "] (SMTP Failed: " . $e->getMessage() . ") TO: $to | SUBJECT: $subject | BODY: $body\n---\n";
+            $logEntry = "[" . date('Y-m-d H:i:s') . "] Resend HTTP $httpCode: $message | TO: $to | SUBJECT: $subject\n---\n";
             @file_put_contents($logDir . '/mail.log', $logEntry, FILE_APPEND);
 
-            throw new \Exception("SMTP Error: " . $e->getMessage());
+            throw new \Exception($message);
         }
+
+        return true;
     }
 
     /**
