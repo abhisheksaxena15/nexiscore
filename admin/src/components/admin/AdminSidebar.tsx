@@ -78,10 +78,10 @@ export function AdminSidebar({ onLogout }: { onLogout: () => void }) {
     <aside className="hidden lg:flex w-64 shrink-0 flex-col border-r border-border bg-card">
       <div className="flex h-16 items-center gap-2 border-b border-border px-6">
         <div className="grid h-8 w-8 place-items-center bg-foreground text-background font-bold">
-          A
+          N
         </div>
         <div className="leading-tight">
-          <div className="text-sm font-bold uppercase tracking-widest">Allstag</div>
+          <div className="text-sm font-bold uppercase tracking-widest">Nexiscore</div>
           <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
             Admin
           </div>

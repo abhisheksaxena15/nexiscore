@@ -130,10 +130,10 @@ function ForgotPasswordPage() {
       <div className="hidden lg:flex flex-col justify-between bg-foreground p-12 text-background">
         <div className="flex items-center gap-3">
           <div className="grid h-10 w-10 place-items-center bg-background text-foreground font-bold">
-            A
+            N
           </div>
           <div>
-            <div className="text-lg font-bold uppercase tracking-widest">Allstag</div>
+            <div className="text-lg font-bold uppercase tracking-widest">Nexiscore</div>
             <div className="text-xs uppercase tracking-widest opacity-70">Admin Console</div>
           </div>
         </div>
@@ -156,9 +156,9 @@ function ForgotPasswordPage() {
         <div className="w-full max-w-sm">
           <div className="lg:hidden mb-8 flex items-center gap-2">
             <div className="grid h-9 w-9 place-items-center bg-foreground text-background font-bold">
-              A
+              N
             </div>
-            <div className="text-sm font-bold uppercase tracking-widest">Allstag Admin-</div>
+            <div className="text-sm font-bold uppercase tracking-widest">Nexiscore</div>
           </div>
 
           {step === "email" && (
@@ -180,7 +180,7 @@ function ForgotPasswordPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="admin@allstag.com"
+                    placeholder="admin@nexiscore.com"
                     className="mt-1 h-11 w-full rounded-md border border-border bg-background px-3 text-sm outline-none focus:border-foreground/40"
                     autoFocus
                   />

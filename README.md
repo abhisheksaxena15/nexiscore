@@ -1,6 +1,6 @@
-# Allstage E-Commerce Platform
+# Nexiscore E-Commerce Platform
 
-Allstage is a full-stack, heavyweight streetwear e-commerce platform. It is split into three main components: a custom PHP REST API, an admin dashboard panel, and a storefront client.
+Nexiscore is a full-stack, heavyweight streetwear e-commerce platform. It is split into three main components: a custom PHP REST API, an admin dashboard panel, and a storefront client.
 
 ---
 
@@ -130,7 +130,7 @@ Choose this option if you want to run the backend via command line without placi
    ```bash
    npm install
    ```
-3. Create a `.env` file in the `admin/admin-hub-main/` directory:
+3. Create a `.env` file in the `admin` directory:
    ```ini
    # Points the admin panel to the backend API served by Apache
    VITE_ADMIN_API_URL=http://localhost/all-stage/All-stage/backend/public/api/admin

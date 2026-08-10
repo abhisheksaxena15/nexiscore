@@ -111,9 +111,9 @@ function AdminLoginPage() {
         <div className="w-full max-w-sm">
           <div className="lg:hidden mb-8 flex items-center gap-2">
             <div className="grid h-9 w-9 place-items-center bg-foreground text-background font-bold">
-              A
+              N
             </div>
-            <div className="text-sm font-bold uppercase tracking-widest">Allstag Admin</div>
+            <div className="text-sm font-bold uppercase tracking-widest">Nexiscore Admin</div>
           </div>
 
           {step === "credentials" ? (
@@ -136,7 +136,7 @@ function AdminLoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="admin@allstag.com"
+                    placeholder="admin@nexiscore.com"
                     className="mt-1 h-11 w-full rounded-md border border-border bg-background px-3 text-sm outline-none focus:border-foreground/40"
                   />
                 </div>

@@ -7,7 +7,7 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <div className="text-display text-4xl tracking-[0.15em]">
-              ALL<span className="text-molten">/</span>STAG
+              Nexiscore
             </div>
             <p className="mt-4 max-w-sm text-sm text-bone/70">
               Heavyweight tees, boxy shirts and racer tanks — cut and stitched in
@@ -39,7 +39,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-bone/10 pt-6 text-xs text-bone/50 sm:flex-row sm:items-center">
-          <p>© {new Date().getFullYear()} Allstag. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Nexiscore. All rights reserved.</p>
           <p className="font-mono uppercase tracking-widest">India · INR ₹</p>
         </div>
       </div>

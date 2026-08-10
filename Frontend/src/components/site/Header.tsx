@@ -66,7 +66,7 @@ export function Header() {
         </nav>
 
         <Link to="/" className="text-display text-2xl tracking-[0.15em] lg:text-3xl">
-          ALL<span className="text-molten">/</span>STAGE
+          Nexiscore
         </Link>
 
         <div className="flex items-center gap-4">

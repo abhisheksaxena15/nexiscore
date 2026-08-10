@@ -7,7 +7,7 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <div className="text-display text-4xl tracking-[0.15em]">
-              ALL<span className="text-molten">/</span>STAG
+              Nexi<span className="text-molten">/</span>Score
             </div>
             <p className="mt-4 max-w-sm text-sm text-bone/70">
               Heavyweight tees, boxy shirts and racer tanks — cut and stitched in
