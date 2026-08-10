@@ -22,8 +22,8 @@ class MailService
             return;
         }
 
-        $this->from = $env('MAIL_FROM') ?: 'onboarding@resend.dev';
-        $this->fromName = $env('MAIL_FROM_NAME') ?: 'Nexiscore';
+        $this->from = $env('RESEND_FROM') ?: ($env('MAIL_FROM') ?: 'onboarding@resend.dev');
+        $this->fromName = $env('RESEND_FROM_NAME') ?: ($env('MAIL_FROM_NAME') ?: 'Nexiscore');
     }
 
     /**
