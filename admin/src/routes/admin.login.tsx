@@ -211,7 +211,7 @@ function AdminLoginPage() {
           ) : (
             /* ── OTP form ── */
             <>
-              <h2 className="text-2xl font-semibold">Verify OTP</h2>
+              <h2 className="text-2xl font-semibold">Verify OTP -</h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 A 6-digit code has been sent to{" "}
                 <span className="font-medium text-foreground">{otpData?.email}</span>.
