@@ -27,8 +27,18 @@ class MailService
         $this->mail->SMTPAuth = true;
         $this->mail->Username = $getHost('MAIL_USERNAME');
         $this->mail->Password = $getHost('MAIL_PASSWORD');
-        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $this->mail->Port = (int) $getHost('MAIL_PORT');
+        
+        $port = (int) $getHost('MAIL_PORT');
+        $this->mail->Port = $port;
+        
+        if ($port === 465) {
+            $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        } else {
+            $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        }
+        
+        // Prevent hanging on connection issues
+        $this->mail->Timeout = 10;
 
         // Sender
         $this->mail->setFrom(
