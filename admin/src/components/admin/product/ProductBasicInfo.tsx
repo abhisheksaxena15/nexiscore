@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Product } from "@/types/product";
+import { ADMIN_API_BASE } from "@/lib/admin-api";
 
 interface Brand {
     id: number;
@@ -16,24 +17,20 @@ interface Subcategory {
     name: string;
 }
 
-export default function ProductBasicInfo() {
-    const API = import.meta.env.VITE_ADMIN_API_URL;
+interface Props {
+    product: Product;
+    setProduct: React.Dispatch<React.SetStateAction<Product>>;
+}
 
+export default function ProductBasicInfo({
+    product,
+    setProduct,
+}: Props) {
     const [brands, setBrands] = useState<Brand[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
     const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
 
-
-    interface Props {
-        product: Product;
-        setProduct: React.Dispatch<React.SetStateAction<Product>>;
-    }
-
-    export default function ProductBasicInfo({
-        product,
-        setProduct,
-    }: Props) {
-        const [subcategoryId, setSubcategoryId] = useState("");
+    const [subcategoryId, setSubcategoryId] = useState("");
 
         useEffect(() => {
             loadBrands();
@@ -70,7 +67,7 @@ export default function ProductBasicInfo() {
 
         async function loadBrands() {
 
-            const res = await fetch(`${API}/brands`);
+            const res = await fetch(`${ADMIN_API_BASE}/brands`);
 
             const data = await res.json();
 
@@ -80,7 +77,7 @@ export default function ProductBasicInfo() {
 
         async function loadCategories() {
 
-            const res = await fetch(`${API}/categories`);
+            const res = await fetch(`${ADMIN_API_BASE}/categories`);
 
             const data = await res.json();
 
@@ -91,7 +88,7 @@ export default function ProductBasicInfo() {
         async function loadSubcategories(category: string) {
 
             const res = await fetch(
-                `${API}/subcategories?category_id=${category}`
+                `${ADMIN_API_BASE}/subcategories?category_id=${category}`
             );
 
             const data = await res.json();
