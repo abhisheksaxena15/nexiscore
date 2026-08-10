@@ -158,7 +158,7 @@ function ForgotPasswordPage() {
             <div className="grid h-9 w-9 place-items-center bg-foreground text-background font-bold">
               A
             </div>
-            <div className="text-sm font-bold uppercase tracking-widest">Allstag Admin</div>
+            <div className="text-sm font-bold uppercase tracking-widest">Allstag Admin-</div>
           </div>
 
           {step === "email" && (
