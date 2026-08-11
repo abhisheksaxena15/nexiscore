@@ -8,9 +8,9 @@ export const Route = createFileRoute("/collections/$handle")({
     const label = cat?.label ?? params.handle.charAt(0).toUpperCase() + params.handle.slice(1);
     return {
       meta: [
-        { title: `${label} — Allstag` },
-        { name: "description", content: `Shop ${label.toLowerCase()} at Allstag. Heavyweight streetwear, dispatched in 24 hours.` },
-        { property: "og:title", content: `${label} — Allstag` },
+        { title: `${label} — Nexiscore` },
+        { name: "description", content: `Shop ${label.toLowerCase()} at Nexiscore. Heavyweight streetwear, dispatched in 24 hours.` },
+        { property: "og:title", content: `${label} — Nexiscore` },
       ],
     };
   },

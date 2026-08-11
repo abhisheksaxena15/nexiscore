@@ -8,9 +8,9 @@ import { Countdown } from "@/components/site/Countdown";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Allstag — Heavyweight Streetwear from Mumbai" },
+      { title: "Nexiscore — Heavyweight Streetwear from Mumbai" },
       { name: "description", content: "Heavyweight tees, boxy shirts and racer tanks. Cut and stitched in Mumbai. Free shipping over ₹999. Dispatched in 24 hours." },
-      { property: "og:title", content: "Allstag — Heavyweight Streetwear" },
+      { property: "og:title", content: "Nexiscore — Heavyweight Streetwear" },
       { property: "og:description", content: "Stitched in Mumbai. Cut heavy. Shipped everywhere." },
     ],
   }),

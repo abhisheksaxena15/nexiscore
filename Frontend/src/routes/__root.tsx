@@ -70,10 +70,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Allstag — Heavyweight Streetwear from Mumbai" },
+      { title: "Nexiscore — Heavyweight Streetwear from Mumbai" },
       { name: "description", content: "Heavyweight tees, boxy shirts and racer tanks. Cut and stitched in Mumbai. Free shipping over ₹999." },
-      { name: "author", content: "Allstag" },
-      { property: "og:title", content: "Allstag — Heavyweight Streetwear" },
+      { name: "author", content: "Nexiscore" },
+      { property: "og:title", content: "Nexiscore — Heavyweight Streetwear" },
       { property: "og:description", content: "Stitched in Mumbai. Cut heavy. Shipped everywhere." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

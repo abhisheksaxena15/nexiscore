@@ -27,13 +27,13 @@ export const Route = createFileRoute("/products/$handle")({
     return { product };
   },
   head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: "Not found — Allstag" }, { name: "robots", content: "noindex" }] };
+    if (!loaderData) return { meta: [{ title: "Not found — Nexiscore" }, { name: "robots", content: "noindex" }] };
     const { product } = loaderData;
     return {
       meta: [
-        { title: `${product.title} — Allstag` },
-        { name: "description", content: `${product.title}. ${product.fabric}, ${product.gsm}g, ${product.fit}. ₹${product.selling_price}.` },
-        { property: "og:title", content: `${product.title} — Allstag` },
+        { title: `${product.title} — Nexiscore` },
+        { name: "description", content: product.description.slice(0, 150) + "..." },
+        { property: "og:title", content: `${product.title} — Nexiscore` },
         { property: "og:description", content: `${product.fabric} · ${product.gsm}g · ${product.fit}` },
         { property: "og:image", content: product.image },
       ],

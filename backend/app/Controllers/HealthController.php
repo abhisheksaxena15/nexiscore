@@ -10,7 +10,7 @@ class HealthController
     {
         Response::success(
             [
-                "application" => "Allstag Ecommerce Backend",
+                "application" => "Nexiscore Ecommerce Backend",
                 "version" => "1.0.0",
                 "status" => "Running"
             ],

@@ -6,7 +6,7 @@ import { useCart } from "@/context/CartContext";
 export const Route = createFileRoute("/account")({
   head: () => ({
     meta: [
-      { title: "Your Account — Allstag" },
+      { title: "Your Account — Nexiscore" },
       { name: "description", content: "Manage your profile, saved addresses and past orders." },
       { name: "robots", content: "noindex" },
     ],
