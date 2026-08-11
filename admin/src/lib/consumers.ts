@@ -261,7 +261,7 @@ async function sendEmail(opts: { to: string; template: string; data: unknown }) 
     method: "POST",
     headers: { authorization: `Bearer ${key}`, "content-type": "application/json" },
     body: JSON.stringify({
-      from: "Allstag <hello@allstag.co>",
+      from: "Nexiscore <hello@nexiscore.com>",
       to: opts.to,
       subject: subjectFor(opts.template),
       text: JSON.stringify(opts.data, null, 2),
@@ -271,10 +271,10 @@ async function sendEmail(opts: { to: string; template: string; data: unknown }) 
 
 function subjectFor(t: string) {
   switch (t) {
-    case "order-created": return "Your Allstag order is in ✦";
-    case "order-fulfilled": return "Your order is on the way";
-    case "cart-abandoned": return "Still thinking it over?";
-    case "welcome": return "Welcome to Allstag";
-    default: return "Allstag";
+    case "order-created": return "Your Nexiscore order is in ✦";
+    case "order-shipped": return "Your order has been shipped";
+    case "order-cancelled": return "Your order has been cancelled";
+    case "welcome": return "Welcome to Nexiscore";
+    default: return "Nexiscore";
   }
 }

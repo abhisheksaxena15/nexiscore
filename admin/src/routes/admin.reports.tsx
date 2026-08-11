@@ -454,7 +454,7 @@ function ReportsPage() {
       <div className="hidden print:block border-b-2 border-primary pb-4 mb-6">
         <div className="flex justify-between items-end">
           <div>
-            <h1 className="text-display text-3xl tracking-tight text-primary font-bold">ALLSTAG</h1>
+            <h1 className="text-display text-3xl tracking-tight text-primary font-bold">NEXISCORE</h1>
             <p className="text-xs text-muted-foreground font-mono">Executive Business Report</p>
           </div>
           <div className="text-right text-xs text-muted-foreground font-mono space-y-0.5">
@@ -990,7 +990,7 @@ function ReportsPage() {
 
       {/* Print Footer */}
       <div className="hidden print:block border-t border-border mt-12 pt-4 text-center text-[10px] text-muted-foreground font-mono">
-        Allstag Admin Insights Hub. Generated automatically by system admin. Page 1 of 1.
+        Nexiscore Admin Insights Hub. Generated automatically by system admin. Page 1 of 1.
       </div>
 
       {/* Custom print styles */}

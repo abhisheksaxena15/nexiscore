@@ -148,7 +148,7 @@ function ForgotPasswordPage() {
           </p>
         </div>
 
-        <div className="text-xs opacity-60">© {new Date().getFullYear()} Allstag. All rights reserved.</div>
+        <div className="text-xs opacity-60">© {new Date().getFullYear()} Nexiscore. All rights reserved.</div>
       </div>
 
       {/* Form panel */}

@@ -85,10 +85,10 @@ function AdminLoginPage() {
       <div className="hidden lg:flex flex-col justify-between bg-foreground p-12 text-background">
         <div className="flex items-center gap-3">
           <div className="grid h-10 w-10 place-items-center bg-background text-foreground font-bold">
-            A
+            N
           </div>
           <div>
-            <div className="text-lg font-bold uppercase tracking-widest">Allstag</div>
+            <div className="text-lg font-bold uppercase tracking-widest">Nexiscore</div>
             <div className="text-xs uppercase tracking-widest opacity-70">Admin Console</div>
           </div>
         </div>
@@ -103,7 +103,7 @@ function AdminLoginPage() {
           </p>
         </div>
 
-        <div className="text-xs opacity-60">© {new Date().getFullYear()} Allstag. All rights reserved.</div>
+        <div className="text-xs opacity-60">© {new Date().getFullYear()} Nexiscore. All rights reserved.</div>
       </div>
 
       {/* Form panel */}
