@@ -51,7 +51,7 @@ LOCK TABLES `admins` WRITE;
 -- and replace the password hash string (4th column) below.
 -- -----------------------------------------------------------------------------------------------------
 INSERT INTO `admins` VALUES (2,'Admin','admin@allstage.com','$2y$10$pRDTgaoSyQM.yV.xPE/o.eDvzTnckvPM/O2k9CTwMVOF/7GnCBBYS','SUPER_ADMIN',NULL,'ACTIVE',NULL,'2026-07-17 19:42:27','2026-07-17 19:42:27');
-INSERT INTO `admins` VALUES (3,'Abhishek Saxena','prakharpande.007@gmail.com','$2y$10$.HXii3caufkJFRd7a4tyteCiJnmzGSuX2CUXFrrFaG/nwzZjrhuTa','SUPER_ADMIN',NULL,'ACTIVE',NULL,'2026-07-17 13:39:42','2026-07-18 09:02:55');
+INSERT INTO `admins` VALUES (3,'Abhishek Saxena','pande.prakhar007@gmail.com','$2y$10$.HXii3caufkJFRd7a4tyteCiJnmzGSuX2CUXFrrFaG/nwzZjrhuTa','SUPER_ADMIN',NULL,'ACTIVE',NULL,'2026-07-17 13:39:42','2026-07-18 09:02:55');
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 
