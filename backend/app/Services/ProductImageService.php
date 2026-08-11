@@ -2,17 +2,18 @@
 
 namespace App\Services;
 
-use App\Helpers\UploadHelper;
 use App\Models\ProductImage;
 use App\Repositories\ProductImageRepository;
 
 class ProductImageService
 {
     private ProductImageRepository $repository;
+    private CloudinaryService $cloudinary;
 
     public function __construct()
     {
         $this->repository = new ProductImageRepository();
+        $this->cloudinary = new CloudinaryService();
     }
 
     public function upload(
@@ -21,13 +22,23 @@ class ProductImageService
         bool $isPrimary = false
     ): ProductImage {
 
-        $path = UploadHelper::uploadProductImage($file);
+        if (
+            !isset($file['tmp_name']) ||
+            $file['error'] !== UPLOAD_ERR_OK
+        ) {
+            throw new \Exception("Invalid image upload.");
+        }
+
+        $imagePath = $this->cloudinary->upload(
+            $file['tmp_name']
+        );
 
         $image = new ProductImage();
 
         $image->setProductId($productId);
 
-        $image->setImagePath($path);
+        // Store Cloudinary URL
+        $image->setImagePath($imagePath);
 
         $image->setPrimary($isPrimary);
 

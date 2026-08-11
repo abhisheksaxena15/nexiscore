@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\ProductImageController;
 use App\Controllers\ProductController;
 use App\Controllers\OrderController;
 
