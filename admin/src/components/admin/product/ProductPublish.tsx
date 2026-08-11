@@ -1,5 +1,6 @@
 import type { Product } from "@/types/product";
 import { createProduct } from "@/lib/product-api";
+import { useState } from "react";
 
 interface Props {
   product: Product;
@@ -9,15 +10,24 @@ interface Props {
 export default function ProductPublish({
   product,
 }: Props) {
+  const [bulkCount, setBulkCount] = useState(1);
 
   async function save() {
-
-    console.log(product);
-
-    await createProduct(product);
-
-    alert("Product Saved");
-
+    try {
+      for (let i = 0; i < bulkCount; i++) {
+        const payload = { ...product };
+        if (i > 0) {
+          payload.name = `${product.name} (Copy ${i})`;
+          payload.slug = `${product.slug}-copy-${i}`;
+          payload.sku = `${product.sku}-COPY-${i}`;
+        }
+        await createProduct(payload);
+      }
+      alert(`Successfully saved ${bulkCount} product(s)`);
+    } catch (err) {
+      console.error(err);
+      alert("Error saving products. Some may have been created.");
+    }
   }
 
   return (
@@ -31,6 +41,18 @@ export default function ProductPublish({
       </h2>
 
       <div className="space-y-4">
+
+        <label className="flex flex-col gap-2 font-medium mb-4">
+          Quantity to create
+          <input
+            type="number"
+            min="1"
+            max="100"
+            value={bulkCount}
+            onChange={(e) => setBulkCount(Math.max(1, Number(e.target.value)))}
+            className="border border-border p-2 rounded max-w-[120px]"
+          />
+        </label>
 
         <label className="flex gap-2">
 

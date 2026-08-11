@@ -1,0 +1,3 @@
+name,slug,sku,brand_id,category_id,subcategory_id,short_description,description,selling_price,compare_price,cost_price,quantity,low_stock_threshold,status,featured,new_arrival,best_seller
+"Heavyweight Blank Tee","heavyweight-blank-tee","TS-001",1,2,5,"Our signature 240GSM blank tee","A premium, pre-shrunk cotton tee built for everyday wear.",1499.00,1999.00,600.00,50,5,"ACTIVE",1,1,0
+"Molten Racer Tank","","TK-104",1,3,,"Slim fit ribbed tank top","Perfect for layering or summer heat.",899.00,1299.00,300.00,100,10,"DRAFT",0,1,0
