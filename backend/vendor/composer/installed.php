@@ -3,7 +3,7 @@
         'name' => 'allstag/backend',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'abd1ecec3215eba2f8b5385c5080f6b3cf8ee3e5',
+        'reference' => '437971d7be2041cc469d67d349ef455cbcfd0889',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'allstag/backend' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'abd1ecec3215eba2f8b5385c5080f6b3cf8ee3e5',
+            'reference' => '437971d7be2041cc469d67d349ef455cbcfd0889',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
