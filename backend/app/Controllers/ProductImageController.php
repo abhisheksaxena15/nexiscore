@@ -15,7 +15,7 @@ class ProductImageController extends BaseController
 
     public function upload(): void
     {
-        $productId = (int)($_POST['product_id'] ?? 0);
+       $productId = (int)\App\Core\Request::param('id');
 
         if (!$productId) {
 

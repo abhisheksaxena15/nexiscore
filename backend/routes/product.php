@@ -23,3 +23,8 @@ $router->post(
     '/api/visit',
     [App\Controllers\DashboardController::class, 'logVisit']
 );
+
+$router->post(
+    '/api/admin/products/{id}/images',
+    [ProductImageController::class, 'upload']
+);
