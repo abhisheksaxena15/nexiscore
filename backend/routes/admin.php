@@ -114,6 +114,16 @@ $router->post(
     [ProductController::class, 'bulkAction']
 );
 
+$router->post(
+    '/api/admin/products/bulk-import',
+    [ProductController::class, 'bulkImport']
+);
+
+$router->get(
+    '/api/admin/products/import-template',
+    [ProductController::class, 'importTemplate']
+);
+
 $router->put(
     '/api/admin/products/{id}',
     [ProductController::class, 'update']

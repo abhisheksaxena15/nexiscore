@@ -267,4 +267,111 @@ public function destroy(): void
             $this->error($e->getMessage(), 400);
         }
     }
+
+    public function importTemplate(): void
+    {
+        $headers = [
+            'name', 'slug', 'sku', 'brand_id', 'category_id', 'subcategory_id',
+            'short_description', 'description', 'selling_price', 'compare_price',
+            'cost_price', 'quantity', 'low_stock_threshold', 'status', 'featured',
+            'new_arrival', 'best_seller'
+        ];
+        
+        $output = fopen('php://output', 'w');
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="products_template.csv"');
+        
+        fputcsv($output, $headers);
+        fclose($output);
+        exit;
+    }
+
+    public function bulkImport(): void
+    {
+        $mode = $_POST['mode'] ?? 'upsert';
+        
+        if (!isset($_FILES['file']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK) {
+            $this->error("No file uploaded or upload error.", 400);
+            return;
+        }
+
+        $file = $_FILES['file']['tmp_name'];
+        $handle = fopen($file, 'r');
+        if (!$handle) {
+            $this->error("Cannot read file.", 400);
+            return;
+        }
+
+        $headers = fgetcsv($handle);
+        if (!$headers) {
+            $this->error("Invalid CSV file.", 400);
+            return;
+        }
+        
+        // Trim headers
+        $headers = array_map('trim', $headers);
+
+        $imported = 0;
+        $updated = 0;
+        $skipped = 0;
+        $failed = 0;
+        $errors = [];
+        $rowNum = 1;
+
+        $repo = new \App\Repositories\ProductRepository();
+
+        while (($row = fgetcsv($handle)) !== false) {
+            $rowNum++;
+            
+            // Pad or truncate row to match headers count
+            if (count($row) < count($headers)) {
+                $row = array_pad($row, count($headers), '');
+            } elseif (count($row) > count($headers)) {
+                $row = array_slice($row, 0, count($headers));
+            }
+            
+            $data = array_combine($headers, $row);
+
+            $sku = trim($data['sku'] ?? '');
+            if (empty($sku)) {
+                $failed++;
+                $errors[] = ['row' => $rowNum, 'message' => "SKU is required"];
+                continue;
+            }
+
+            try {
+                $existingProduct = $repo->findBySku($sku);
+
+                if ($existingProduct) {
+                    if ($mode === 'create') {
+                        $skipped++;
+                    } else {
+                        // For update, merge existing product data if fields are missing in CSV
+                        $updateData = $data;
+                        if (empty($updateData['brand_id'])) $updateData['brand_id'] = $existingProduct->getBrandId();
+                        if (empty($updateData['category_id'])) $updateData['category_id'] = $existingProduct->getCategoryId();
+                        if (empty($updateData['name'])) $updateData['name'] = $existingProduct->getName();
+                        
+                        $this->service->update($existingProduct->getId(), $updateData);
+                        $updated++;
+                    }
+                } else {
+                    $this->service->create($data);
+                    $imported++;
+                }
+            } catch (Exception $e) {
+                $failed++;
+                $errors[] = ['row' => $rowNum, 'message' => $e->getMessage()];
+            }
+        }
+        fclose($handle);
+
+        $this->success([
+            'imported' => $imported,
+            'updated' => $updated,
+            'skipped' => $skipped,
+            'failed' => $failed,
+            'errors' => $errors
+        ], "Import finished");
+    }
 }
