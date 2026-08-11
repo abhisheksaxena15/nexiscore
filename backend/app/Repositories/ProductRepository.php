@@ -164,6 +164,11 @@ class ProductRepository extends BaseRepository
         // Generate full URL
         if ($primaryUrl && !str_starts_with($primaryUrl, 'http')) {
             $appUrl = getenv('APP_URL');
+            if (empty($appUrl)) {
+                $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ? "https://" : "http://";
+                $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+                $appUrl = $protocol . $host;
+            }
             $primaryUrl = rtrim($appUrl, '/') . '/' . ltrim($primaryUrl, '/');
         }
 
@@ -272,6 +277,11 @@ class ProductRepository extends BaseRepository
                 $path = $imgRow['image_path'];
                 if (!str_starts_with($path, 'http')) {
                     $appUrl = getenv('APP_URL');
+                    if (empty($appUrl)) {
+                        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ? "https://" : "http://";
+                        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+                        $appUrl = $protocol . $host;
+                    }
                     $path = rtrim($appUrl, '/') . '/' . ltrim($path, '/');
                 }
                 $product->setPrimaryImageUrl($path);

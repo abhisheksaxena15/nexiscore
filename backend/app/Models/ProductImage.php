@@ -80,7 +80,12 @@ class ProductImage extends BaseModel
     {
         $url = $this->imagePath;
         if (!empty($url) && !str_starts_with($url, 'http')) {
-            $appUrl = $_ENV['APP_URL'] ?? 'http://localhost/all-stage/All-stage/backend/public';
+            $appUrl = $_ENV['APP_URL'] ?? getenv('APP_URL');
+            if (empty($appUrl)) {
+                $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ? "https://" : "http://";
+                $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+                $appUrl = $protocol . $host;
+            }
             $url = rtrim($appUrl, '/') . '/' . ltrim($url, '/');
         }
 
