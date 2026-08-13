@@ -87,7 +87,7 @@ export function useProductsList() {
 
   useEffect(() => {
     const apiBase = import.meta.env.VITE_API_URL ?? "http://localhost/all-stage/All-stage/backend/public/api";
-    fetch(`${apiBase}/admin/products`)
+    fetch(`${apiBase}/admin/products?per_page=1000`)
       .then((res) => res.json())
       .then((json) => {
         if (json.success && json.data && json.data.data) {
